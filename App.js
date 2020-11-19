@@ -28,7 +28,7 @@ function App() {
     }
   });
 
-  keycloak.onAuthLogout = () => authenticate(false);
+  keycloak.onAuthLogout = () => authenticate(false); // not sure where onAuthLogout comes from.
 
   const request = (endpoint) => {
     const options = {
