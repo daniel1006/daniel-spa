@@ -8,19 +8,17 @@ import MessageBox from './MessageBox';
 
 import './App.css';
 
-//Keycloak Admin Login Page
 let keycloak = new Keycloak({url: 'https://login.t2data.com/auth/', realm: 'kramfors', clientId: 'spa'});
-//protected Page I Think
 var serviceUrl = 'https://lb.t2data.com/simple/v1'
 
-//Custom hooks 1st with Value 2nd with the updateed function that sets the value. 3rd adds React state to function component settin it to the initially state.
 function App() {
   const [authenticated, authenticate] = useState(false);
   const [response, setResponse] = useState('');
   const [error, hasError] = useState(false);
-
-  //check-sso calls the init function to authenticate the client if the user is already logged in if not they will be directed to the browser and remained unauthenticated.
-  keycloak.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 }).then(() => { //returns a promise that is used to hook up a handler that will be called when the promise is resloved.
+  
+// is .init just a function or does it initialize 'check-sso'?
+// is Iframe detecting a sign in status through the Keycloak Login page ?  
+  keycloak.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 }).then(() => { 
     if (keycloak.authenticated) {
       authenticate(true);
     } else {
@@ -28,30 +26,31 @@ function App() {
     }
   });
 
-  keycloak.onAuthLogout = () => authenticate(false); // not sure where onAuthLogout comes from.
+  // is onAuthLogout an event that verifies when the user no longer has a status cookie/loged out ?
+  keycloak.onAuthLogout = () => authenticate(false);
 
-  const request = (endpoint) => {
-    const options = {
-      method: 'GET'
+  const request = (endpoint) => {// Don't know what this is trying to do
+    const options = {//
+      method: 'GET'//
     }
 
     if (keycloak.authenticated) {
-      options.headers = {Authorization: `Bearer ${keycloak.token}`};//Given bearertoken if authenticated
+      options.headers = {Authorization: `Bearer ${keycloak.token}`};
     }
     const url = `${serviceUrl}/${endpoint}`;
     console.log({url})
     console.log({options})
     fetch(url, options).then((response) => {
-      if (response.status === 200) {  //success if Authenticated
+      if (response.status === 200) {  
         response.text().then((text) => {
           setResponse('Message: ' + text);
         });
         hasError(false);
       } else if (response.status === 0) {
-        setResponse('Request failed');//error within system
+        setResponse('Request failed');
         hasError(true);
       } else {
-        setResponse(response.status + ' ' + response.statusText);//failed request
+        setResponse(response.status + ' ' + response.statusText);
         hasError(true);
       }
     });
