@@ -1,0 +1,28 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+}
+
+a {
+  margin: 1rem;
+}
+
+.Content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.Box {
+  background-color: burlywood;
+  border-radius: 0.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.Box button {
+  text-align: center;
+  margin: 10px;
+}

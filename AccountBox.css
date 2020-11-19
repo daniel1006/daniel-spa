@@ -1,0 +1,8 @@
+.AccountBox {
+    margin: 1.5rem;
+}
+
+.AccountBox button {
+    text-align: center;
+    margin: 10px;
+}

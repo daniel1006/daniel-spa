@@ -1,0 +1,13 @@
+.Message {
+    background-color: whitesmoke;
+    height: 5rem;
+    grid-column: 1/4;
+    margin: 10px;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    color: black;
+  }
+  
+  .Message.Error {
+    color: #a21e22
+  }
