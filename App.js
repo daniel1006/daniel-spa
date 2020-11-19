@@ -16,7 +16,7 @@ function App() {
   const [response, setResponse] = useState('');
   const [error, hasError] = useState(false);
   
-// is .init just a function or does it initialize 'check-sso'?
+// is .init a function or does it stand for initialize 'check-sso'?
 // is Iframe detecting a sign in status through the Keycloak Login page ?  
   keycloak.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 }).then(() => { 
     if (keycloak.authenticated) {
