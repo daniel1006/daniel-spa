@@ -8,16 +8,14 @@ import MessageBox from './MessageBox';
 
 import './App.css';
 
-let keycloak = new Keycloak({url: 'https://login.t2data.com/auth/', realm: 'kramfors', clientId: 'spa'}); // super confused about what new is supposed to do.
+let keycloak = new Keycloak({url: 'https://login.t2data.com/auth/', realm: 'kramfors', clientId: 'spa'}); 
 var serviceUrl = 'https://lb.t2data.com/simple/v1'
 
 function App() {
   const [authenticated, authenticate] = useState(false);
   const [response, setResponse] = useState('');
   const [error, hasError] = useState(false);
-  
-// is .init a function or does it stand for initialize 'check-sso'?
-// is Iframe detecting a sign in status through the Keycloak Login page ?   
+    
   keycloak.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 }).then(() => { 
     if (keycloak.authenticated) {
       authenticate(true);
@@ -26,12 +24,11 @@ function App() {
     }
   });
 
-  // is onAuthLogout an event that verifies when the user no longer has a status cookie/loged out ?
   keycloak.onAuthLogout = () => authenticate(false);
 
-  const request = (endpoint) => {// Don't know what this is trying to do
-    const options = {        //
-      method: 'GET'.        //
+  const request = (endpoint) => {
+    const options = {       
+      method: 'GET'.        
     }
 
     if (keycloak.authenticated) {
